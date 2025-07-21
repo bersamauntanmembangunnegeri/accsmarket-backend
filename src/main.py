@@ -1,6 +1,6 @@
 import os
 import sys
-# DON\'T CHANGE THIS !!!
+# DON\"T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, jsonify
@@ -24,11 +24,11 @@ def create_app():
     jwt.init_app(app)
 
     # Register blueprints
-    app.register_blueprint(user_bp)
-    app.register_blueprint(account_bp)
-    app.register_blueprint(seed_bp)
-    app.register_blueprint(admin_bp)
-    app.register_blueprint(auth_bp)
+    app.register_blueprint(user_bp, url_prefix="/api/user")
+    app.register_blueprint(account_bp, url_prefix="/api")
+    app.register_blueprint(seed_bp, url_prefix="/api")
+    app.register_blueprint(admin_bp, url_prefix="/api/admin")
+    app.register_blueprint(auth_bp, url_prefix="/api/auth")
 
     CORS(app)
 
