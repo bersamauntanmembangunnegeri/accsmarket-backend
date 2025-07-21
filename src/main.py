@@ -5,14 +5,20 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from src.models.user import db
 from src.routes.user import user_bp
 from src.routes.account import account_bp
 from src.routes.seed_data import seed_bp
 from src.admin.routes import admin_bp
+from src.auth.routes import auth_bp
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asdf#FGSgvasgf$5$WGT"
+app.config["JWT_SECRET_KEY"] = "jwt-secret-string-change-in-production"
+
+# Initialize JWT
+jwt = JWTManager(app)
 
 # Enable CORS for all routes
 CORS(app)
@@ -21,6 +27,7 @@ app.register_blueprint(user_bp, url_prefix="/api")
 app.register_blueprint(account_bp, url_prefix="/api")
 app.register_blueprint(seed_bp, url_prefix="/api")
 app.register_blueprint(admin_bp, url_prefix="/api")
+app.register_blueprint(auth_bp, url_prefix="/api")
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
