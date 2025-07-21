@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from src.models.account import Account
 from src.models.user import User
-from src.main import db
+from src.extensions import db
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
